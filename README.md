@@ -4,6 +4,9 @@ BiblioD est une application bureautique (Linux Desktop) de gestion de bibliothè
 
 ---
 
+<img width="1495" height="740" alt="image" src="https://github.com/user-attachments/assets/3fdab064-1e85-4bd0-ae69-334525d63663" />
+
+
 ## Sommaire
 
 1. [Fonctionnalités](#fonctionnalités)
