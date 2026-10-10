@@ -251,6 +251,23 @@ Des scripts d'empaquetage automatisés sont disponibles dans le dossier `packagi
 
 ---
 
+## Installation des packages Linux (v1.0.1)
+
+- Debian / Ubuntu / Linux Mint :
+
+``` bash
+sudo apt install ./bibliod_1.0.1-1_amd64.deb
+# ou : sudo dpkg -i bibliod_1.0.1-1_amd64.deb && sudo apt-get install -f
+```
+
+- Arch Linux / Manjaro / EndeavourOS :
+
+```bash
+sudo pacman -U bibliod-1.0.1-1-x86_64.pkg.tar.zst
+```
+
+---
+
 ## Tests et Qualité de Code
 
 Le projet intègre une suite de tests unitaires et de tests de composants d'interface :
