@@ -1,0 +1,38 @@
+# Maintainer: Dvim-dev <dvimdev@proton.me>
+pkgname=bibliod
+pkgver=1.0.1
+pkgrel=1
+pkgdesc="Application moderne de gestion de bibliothèque personnelle et d'analyse d'auteurs"
+arch=('x86_64')
+url="https://github.com/dvim-dev/bibliod"
+license=('custom')
+depends=('gtk3' 'glib2' 'sqlite')
+provides=('bibliod')
+conflicts=('bibliod-bin' 'bibliod-git')
+options=('!strip')
+
+package() {
+  install -dm755 "$pkgdir/opt/bibliod"
+  install -dm755 "$pkgdir/usr/bin"
+  install -dm755 "$pkgdir/usr/share/applications"
+  install -dm755 "$pkgdir/usr/share/icons/hicolor/scalable/apps"
+
+  # Install application bundle
+  cp -r "$startdir/../../build/linux/x64/release/bundle/"* "$pkgdir/opt/bibliod/"
+  chmod 755 "$pkgdir/opt/bibliod/bibliod"
+
+  # Binary symlink
+  ln -s /opt/bibliod/bibliod "$pkgdir/usr/bin/bibliod"
+
+  # Desktop launcher
+  install -Dm644 "$startdir/../bibliod.desktop" "$pkgdir/usr/share/applications/bibliod.desktop"
+
+  # Vector and raster icons
+  install -Dm644 "$startdir/../bibliod.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/bibliod.svg"
+  for s in 16 32 48 64 128 256 512; do
+    if [ -f "$startdir/../icons/${s}x${s}/bibliod.png" ]; then
+      install -dm755 "$pkgdir/usr/share/icons/hicolor/${s}x${s}/apps"
+      install -Dm644 "$startdir/../icons/${s}x${s}/bibliod.png" "$pkgdir/usr/share/icons/hicolor/${s}x${s}/apps/bibliod.png"
+    fi
+  done
+}

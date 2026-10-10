@@ -1,0 +1,80 @@
+# ==============================================================================
+# BiblioD - .gitignore
+# ==============================================================================
+
+# Fichiers de compilation et artefacts de build Flutter
+/build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/coverage/
+**/doc/api/
+
+# Symboles et obfuscation
+app.*.symbols
+app.*.map.json
+
+# Cache et fichiers éphémères Linux Desktop
+linux/flutter/ephemeral/
+linux/flutter/.plugin_symlinks/
+
+# Paquets d'installation et archives binaires générés
+/dist/
+packaging/deb_build/
+packaging/arch/pkg/
+packaging/arch/src/
+packaging/arch/*.pkg.tar.*
+*.deb
+*.pkg.tar.*
+*.tar.gz
+*.tar.xz
+*.zip
+
+# Base de données locale, sauvegardes et configuration de stockage
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.bak
+storage_config.json
+bibliod_sync.json
+covers/
+
+# Fichiers sensibles, clés d'API et certificats
+*.env
+*.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*secret*
+*credential*
+
+# IDE et éditeurs de code
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.code-workspace
+.history/
+*.sublime-*
+*.swp
+*.swo
+*~
+*.orig
+*.rej
+
+# Fichiers système et caches temporaires
+.DS_Store
+Thumbs.db
+*.log
+*.class
+*.pyc
+__pycache__/

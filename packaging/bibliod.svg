@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background rounded squircle shadow and gradient -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#0a101d" flood-opacity="0.35"/>
+    </filter>
+    <filter id="bookShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+
+    <!-- Book cover gradient -->
+    <linearGradient id="coverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="50%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#1e40af"/>
+    </linearGradient>
+
+    <!-- Page gradient left -->
+    <linearGradient id="pageLeftGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e2e8f0"/>
+      <stop offset="85%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#cbd5e1"/>
+    </linearGradient>
+
+    <!-- Page gradient right -->
+    <linearGradient id="pageRightGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#cbd5e1"/>
+      <stop offset="15%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+
+    <!-- Gold ribbon / bookmark -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="50%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+
+    <linearGradient id="spineShadow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.3"/>
+      <stop offset="50%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background App Tile -->
+  <rect x="32" y="32" width="448" height="448" rx="100" fill="url(#bgGrad)" filter="url(#shadow)"/>
+  
+  <!-- Subtle border highlight -->
+  <rect x="32" y="32" width="448" height="448" rx="100" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-opacity="0.3"/>
+
+  <!-- Book Container Group -->
+  <g filter="url(#bookShadow)">
+    <!-- Book Base/Cover (Blue outer edge) -->
+    <path d="M 96,350 C 140,336 210,336 256,362 C 302,336 372,336 416,350 L 416,366 C 372,352 302,352 256,378 C 210,352 140,352 96,366 Z" fill="#1e3a8a"/>
+
+    <!-- Pages Thickness (Stack bottom) -->
+    <path d="M 100,344 C 142,332 210,332 256,356 C 302,332 370,332 412,344 L 412,356 C 370,344 302,344 256,368 C 210,344 142,344 100,356 Z" fill="#94a3b8"/>
+
+    <!-- Left Open Pages Block -->
+    <path d="M 104,180 C 146,166 212,166 256,194 L 256,350 C 212,324 146,324 104,338 Z" fill="url(#pageLeftGrad)"/>
+
+    <!-- Right Open Pages Block -->
+    <path d="M 408,180 C 366,166 300,166 256,194 L 256,350 C 300,324 366,324 408,338 Z" fill="url(#pageRightGrad)"/>
+
+    <!-- Left Page Text Lines Simulation -->
+    <line x1="130" y1="216" x2="230" y2="226" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-opacity="0.6"/>
+    <line x1="130" y1="242" x2="230" y2="252" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-opacity="0.6"/>
+    <line x1="130" y1="268" x2="230" y2="278" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-opacity="0.6"/>
+    <line x1="130" y1="294" x2="200" y2="302" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-opacity="0.6"/>
+
+    <!-- Right Page Text Lines Simulation -->
+    <line x1="282" y1="226" x2="382" y2="216" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-opacity="0.6"/>
+    <line x1="282" y1="252" x2="382" y2="242" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-opacity="0.6"/>
+    <line x1="282" y1="278" x2="382" y2="268" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-opacity="0.6"/>
+    <line x1="282" y1="304" x2="352" y2="296" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" stroke-opacity="0.6"/>
+
+    <!-- Center Fold Shade -->
+    <path d="M 248,188 C 252,192 260,192 264,188 L 264,356 C 260,352 252,352 248,356 Z" fill="url(#spineShadow)"/>
+
+    <!-- Bookmark Ribbon (Gold) -->
+    <path d="M 246,170 Q 256,180 266,170 L 266,280 L 256,266 L 246,280 Z" fill="url(#goldGrad)" filter="url(#bookShadow)"/>
+
+    <!-- Decorative Library Monogram 'B' on top-left of page -->
+    <circle cx="140" cy="192" r="6" fill="#3b82f6" fill-opacity="0.7"/>
+    <circle cx="160" cy="190" r="4" fill="#60a5fa" fill-opacity="0.5"/>
+  </g>
+</svg>
