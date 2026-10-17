@@ -6,8 +6,20 @@ import tarfile
 import tempfile
 from pathlib import Path
 
+def get_package_version(project_root: Path) -> str:
+    if "APP_VERSION" in os.environ and os.environ["APP_VERSION"].strip():
+        return os.environ["APP_VERSION"].strip()
+    pubspec = project_root / "pubspec.yaml"
+    if pubspec.exists():
+        for line in pubspec.read_text(encoding="utf-8").splitlines():
+            if line.startswith("version:"):
+                raw = line.split(":", 1)[1].strip().strip('"').strip("'")
+                base_ver = raw.split("+")[0]
+                return f"{base_ver}-1"
+    return "1.0.1-1"
+
 def create_deb_package(project_root: Path, output_dir: Path):
-    version = "1.0.1-1"
+    version = get_package_version(project_root)
     pkg_name = "bibliod"
     deb_filename = f"{pkg_name}_{version}_amd64.deb"
     output_deb = output_dir / deb_filename
@@ -36,7 +48,7 @@ Section: utils
 Priority: optional
 Architecture: amd64
 Installed-Size: {installed_size_kb}
-Depends: libc6 (>= 2.31), libgtk-3-0 (>= 3.24.0), libglib2.0-0 (>= 2.64.0), libsqlite3-0 (>= 3.31.0)
+Depends: libc6 (>= 2.34), libgtk-3-0 (>= 3.24.0) | libgtk-3-0t64, libglib2.0-0 (>= 2.64.0) | libglib2.0-0t64, libsqlite3-0 (>= 3.31.0)
 Maintainer: Dvim-dev <dvimdev@proton.me>
 Homepage: https://github.com/dvim-dev/bibliod
 Description: Application moderne de gestion de bibliothèque personnelle

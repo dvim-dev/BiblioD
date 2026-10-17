@@ -1,0 +1,85 @@
+# ==============================================================================
+# Dockerfile.build - Environnement de compilation Debian/Ubuntu (.deb) pour BiblioD
+#
+# Basé sur Ubuntu 22.04 LTS (Jammy Jellyfish - glibc 2.35).
+# Les binaires compilés dans cet environnement sont compatibles avec :
+#   - Ubuntu 22.04 LTS (Jammy)
+#   - Ubuntu 24.04 LTS (Noble)
+#   - Debian 12 (Bookworm - glibc 2.36)
+#   - Debian 13 (Trixie)
+#   - Linux Mint 21+, etc.
+# ==============================================================================
+
+FROM ubuntu:22.04
+
+# Éviter les invites interactives pendant l'installation
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=UTC
+
+# Installation des dépendances de compilation C/C++, GTK3, SQLite et outils de packaging
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    bash \
+    curl \
+    git \
+    unzip \
+    xz-utils \
+    zip \
+    ca-certificates \
+    build-essential \
+    clang \
+    lld \
+    llvm \
+    cmake \
+    ninja-build \
+    pkg-config \
+    libgtk-3-dev \
+    liblzma-dev \
+    libstdc++-12-dev \
+    libsqlite3-dev \
+    librsvg2-bin \
+    python3 \
+    binutils \
+    file \
+    && for d in /usr/lib/llvm-*/bin; do \
+        if [ -d "$d" ]; then \
+            for tool in ar ranlib nm ld ld.gold strip objcopy objdump as; do \
+                if [ ! -e "$d/$tool" ] && [ -e "/usr/bin/$tool" ]; then \
+                    ln -sf "/usr/bin/$tool" "$d/$tool" || true; \
+                fi; \
+            done; \
+            if [ -e "$d/llvm-ar" ] && [ ! -e "$d/ar" ]; then \
+                ln -sf "$d/llvm-ar" "$d/ar" || true; \
+            fi; \
+            if [ -e "$d/llvm-ranlib" ] && [ ! -e "$d/ranlib" ]; then \
+                ln -sf "$d/llvm-ranlib" "$d/ranlib" || true; \
+            fi; \
+            if [ -e "$d/llvm-nm" ] && [ ! -e "$d/nm" ]; then \
+                ln -sf "$d/llvm-nm" "$d/nm" || true; \
+            fi; \
+        fi \
+    done \
+    && rm -rf /var/lib/apt/lists/*
+
+# Version du SDK Flutter (alignée sur la version stable du projet, personnalisable via --build-arg)
+ARG FLUTTER_VERSION=3.38.9
+ENV FLUTTER_HOME=/opt/flutter
+ENV PATH="${FLUTTER_HOME}/bin:${PATH}"
+
+# Téléchargement et installation du SDK Flutter
+RUN curl -fsSL "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${FLUTTER_VERSION}-stable.tar.xz" -o /tmp/flutter.tar.xz \
+    && tar -xf /tmp/flutter.tar.xz -C /opt \
+    && rm /tmp/flutter.tar.xz \
+    && git config --global --add safe.directory /opt/flutter \
+    && git config --global --add safe.directory /workspace \
+    && git config --global --add safe.directory '*' \
+    && flutter config --no-analytics \
+    && flutter precache --linux \
+    && chmod -R a+rwX /opt/flutter
+
+WORKDIR /workspace
+
+# Copie du script d'entrée interne
+COPY packaging/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

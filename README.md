@@ -233,7 +233,14 @@ L'exécutable compilé et ses dépendances partagées se trouvent dans :
 
 Des scripts d'empaquetage automatisés sont disponibles dans le dossier `packaging/` :
 
-- **Debian / Ubuntu (`.deb`)** :
+- **Debian / Ubuntu (`.deb`) via Docker (Recommandé pour compatibilité Ubuntu 22.04+ et Debian 12+)** :
+  ```bash
+  # Assurez-vous que le démon Docker est actif (ex: sudo systemctl start docker)
+  ./build-deb.sh
+  ```
+  Le build est encapsulé dans un conteneur Ubuntu 22.04 LTS (glibc 2.35), ce qui garantit que le paquet `.deb` s'installera et s'exécutera sans conflit de glibc sur Ubuntu 22.04, Ubuntu 24.04, Debian 12, Debian 13 et Linux Mint.
+
+- **Debian / Ubuntu (`.deb`) local direct (hôte)** :
   ```bash
   python3 packaging/build_deb.py
   ```
@@ -244,7 +251,7 @@ Des scripts d'empaquetage automatisés sont disponibles dans le dossier `packagi
   cd packaging/arch && makepkg -f && cd ../..
   ```
 
-- **Génération globale de tous les paquets** :
+- **Génération globale de tous les paquets (hôte)** :
   ```bash
   ./packaging/build_all.sh
   ```
