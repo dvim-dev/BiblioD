@@ -8,6 +8,7 @@ Exec=/usr/bin/bibliod %U
 Icon=bibliod
 Terminal=false
 Categories=Office;Database;Utility;
-StartupWMClass=bibliod
+StartupWMClass=com.bibliod.bibliod
 Keywords=livre;bibliotheque;lecture;isbn;auteur;openlibrary;
 MimeType=x-scheme-handler/bibliod;
+
